@@ -1,8 +1,11 @@
 {
-  "dependencies": {
-    "json-server": "^1.0.0-beta.2"
-  },
+  "name": "hairday",
+  "description": "Aplicação web de agendamento para corte de cabelo.",
+  "author": "Ayrton Yamashita",
   "scripts": {
     "server": "json-server --watch server.json --port 3333"
+  },
+  "dependencies": {
+    "json-server": "^1.0.0-beta.2"
   }
 }
