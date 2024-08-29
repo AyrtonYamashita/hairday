@@ -10,4 +10,4 @@ import "./libs/dayjs.js"
 
 /* JS */
 import "./modules/form/submit.js"
-import "./modules/load.js"
+import "./modules/page-load.js"
