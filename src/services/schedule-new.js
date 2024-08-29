@@ -1,6 +1,6 @@
 import { apiConfig } from "./api-config"
 
-export async function sheduleNew({ id, name, when }) {
+export async function scheduleNew({ id, name, when }) {
   try {
     await fetch(`${apiConfig.baseUrl}/schedules`, {
       method: "POST",
