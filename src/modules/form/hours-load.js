@@ -4,20 +4,27 @@ import { hoursClick } from "./hours-click.js"
 
 const hours = document.getElementById("hours")
 
-export function hoursLoad({ date }) {
+export function hoursLoad({ date, dailySchedules }) {
   // Limpa a lista de horários
   hours.innerHTML = ``
+
+  // Obtém a lista de todos os horários indisponíveis.
+  const unavailableHours = dailySchedules.map((schedule) =>
+    dayjs(schedule.when).format("HH:mm")
+  )
 
   const opening = openingHours.map((hour) => {
     // Recupera somente a hora
     const [sheduleHour] = hour.split(":")
 
     // Adiciona a hora na data e verificar se está no passado.
-    const isHourPast = dayjs(date).add(sheduleHour, "hour").isAfter(dayjs())
+    const isHourPast = dayjs(date).add(sheduleHour, "hour").isBefore(dayjs())
+
+    const available = !unavailableHours.includes(hour) && !isHourPast
 
     return {
       hour,
-      available: isHourPast
+      available
     }
   })
 
@@ -28,11 +35,11 @@ export function hoursLoad({ date }) {
     li.classList.add(available ? "hour-available" : "hour-unavailable")
     li.textContent = hour
 
-    if(hour === "9:00"){
+    if (hour === "9:00") {
       hourHeaderAdd("Manhã")
-    } else if (hour === "13:00"){
+    } else if (hour === "13:00") {
       hourHeaderAdd("Tarde")
-    }else if (hour === "18:00"){
+    } else if (hour === "18:00") {
       hourHeaderAdd("Noite")
     }
 
@@ -43,7 +50,7 @@ export function hoursLoad({ date }) {
   hoursClick()
 }
 
-function hourHeaderAdd(title){
+function hourHeaderAdd(title) {
   const header = document.createElement("li")
   header.classList.add("hour-period")
   header.textContent = title
